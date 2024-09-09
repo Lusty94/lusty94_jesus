@@ -76,8 +76,9 @@ RegisterServerEvent('lusty94_jesus:server:GiveBreadWine', function()
     for _, item in pairs(items) do
         itemsAmount = 1 -- edit amount of EACH item you get from the table above
         if InvType == 'qb' then
-            Player.Functions.AddItem(item, itemsAmount)
-            TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[items], "add", itemsAmount)
+            if exports['qb-inventory']:AddItem(src, item, itemsAmount, nil, nil, nil) then
+                TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[items], "add", itemsAmount)
+            end
         elseif InvType == 'ox' then
             if exports.ox_inventory:CanCarryItem(src, item, itemsAmount) then 
                 exports.ox_inventory:AddItem(src, item, itemsAmount)

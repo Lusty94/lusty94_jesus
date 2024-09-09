@@ -31,6 +31,7 @@ SCRIPT SUPPORT VIA DISCORD: https://discord.gg/BJGFrThmA8
 
 - [qb-core](https://github.com/qbcore-framework/qb-core)
 - [qb-target](https://github.com/qbcore-framework/qb-target)
+- [qb-inventory](https://github.com/qbcore-framework/qb-inventory)
 - [interact-sound](https://github.com/plunkettscott/interact-sound)
 - [suffolk church interior](https://www.gta5-mods.com/maps/gta-iv-suffolk-church-sp-fivem)
 - [ox_lib](https://github.com/overextended/ox_lib/releases/)

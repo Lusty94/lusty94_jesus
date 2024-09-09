@@ -166,30 +166,26 @@ RegisterNetEvent('lusty94_jesus:client:prayToJesus', function(args)
                             type = 'slider',
                             required = true,
                             default = 1,
-                            min = 1, max = 1000,
-                        },
-                        {
-                            type = 'input',
-                            placeholder = 'Do you want some bread and wine?',
-                            disabled = true,
-                        },
-                        {
-                            type = 'checkbox',
-                            label = 'Yes / No',
-                            checked = true,
-                            required = false,
+                            min = 1, max = 1000, step = 100,
                         },
                     })
                     if input then
                         if tonumber(input[2]) >= 0 then
                             local amount = tonumber(input[2])
-                            local checkbox = input[4]
                             QBCore.Functions.TriggerCallback('lusty94_jesus:get:DonationAmount', function(hasMoney)
                                 if hasMoney then
                                     busy = true
                                     LockInventory(true)
                                     TriggerServerEvent('lusty94_jesus:server:DonateMoney', amount)
-                                    if lib.progressCircle({ duration = Config.CoreSettings.Timers.PrayToJesus, label = Config.Language.ProgressBar.PrayToJesus, position = 'bottom', useWhileDead = false, canCancel = true, disable = { car = true, move = true, }, anim = { dict = Config.Animations.Prayer.AnimDict, clip = Config.Animations.Prayer.Anim, flag = Config.Animations.Prayer.Flags}, }) then
+                                    if lib.progressCircle({ 
+                                        duration = Config.CoreSettings.Timers.PrayToJesus, 
+                                        label = Config.Language.ProgressBar.PrayToJesus, 
+                                        position = 'bottom', 
+                                        useWhileDead = false, 
+                                        canCancel = true, 
+                                        disable = { car = true, move = true, }, 
+                                        anim = { dict = Config.Animations.Prayer.AnimDict, clip = Config.Animations.Prayer.Anim, flag = Config.Animations.Prayer.Flags}, 
+                                    }) then
                                         if checkbox then TriggerServerEvent('lusty94_jesus:server:GiveBreadWine') end
                                         busy = false
                                         LockInventory(false)
@@ -308,7 +304,6 @@ end
 function LockInventory(toggle) -- big up to jim for how to do this
 	if toggle then
         LocalPlayer.state:set("inv_busy", true, true) -- used by qb, ps and ox
-
         --this is the old method below uncomment if needed
         --[[         
         if InvType == 'qb' then
@@ -320,7 +315,6 @@ function LockInventory(toggle) -- big up to jim for how to do this
         ]]
     else 
         LocalPlayer.state:set("inv_busy", false, true) -- used by qb, ps and ox
-
         --this is the old method below uncomment if needed
         --[[        
         if InvType == 'qb' then
@@ -338,10 +332,10 @@ AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
         busy = false
         LockInventory(false)
-        for _, v in pairs(spawnedChurchProps) do SetEntityAsMissionEntity(v, false, true) DeleteObject(v) end print('Church Props - Objects Deleted')
+        for _, v in pairs(spawnedChurchProps) do SetEntityAsMissionEntity(v, false, true) DeleteObject(v) end
         for k, v in pairs(Config.InteractionLocations) do if TargetType == 'qb' then exports['qb-target']:RemoveZone(v.Name) elseif TargetType == 'ox' then exports.ox_target:removeZone(v.Name) end end  
         if TargetType == 'qb' then exports['qb-target']:RemoveTargetEntity(jesusPed, 'jesusPed') elseif TargetType == 'ox' then exports.ox_target:removeLocalEntity(jesusPed, 'jesusPed') end        
         DeletePed(jesusPed)
-        print('^5--<^3!^5>-- ^7| Lusty94 |^5 ^5--<^3!^5>--^7 Jesus V1.0.0 Stopped Successfully ^5--<^3!^5>--^7')
+        print('^5--<^3!^5>-- ^7| Lusty94 |^5 ^5--<^3!^5>--^7 Jesus V1.0.1 Stopped Successfully ^5--<^3!^5>--^7')
 	end
 end)
